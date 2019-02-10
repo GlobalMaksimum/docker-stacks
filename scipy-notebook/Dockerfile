@@ -40,7 +40,7 @@ RUN conda install --quiet --yes \
     #'vincent=0.4.*' \
     'beautifulsoup4=4.6.*' \
     'protobuf=3.*' \
-    'xlrd'  && \
+    'xlrd' 'python-graphviz' 'tqdm' && \
     conda remove --quiet --yes --force qt pyqt && \
     conda clean -tipsy && \
     # Activate ipywidgets extension in the environment that runs the notebook server
