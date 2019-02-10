@@ -1,6 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=jupyter/minimal-notebook
+ARG BASE_CONTAINER=globalmaksimum/minimal-notebook
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
@@ -9,7 +9,7 @@ USER root
 
 # ffmpeg for matplotlib anim
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg && \
+    apt-get install -y --no-install-recommends ffmpeg npm&& \
     rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
@@ -18,7 +18,6 @@ USER $NB_UID
 # Remove pyqt and qt pulled in for matplotlib since we're only ever going to
 # use notebook-friendly backends in these images
 RUN conda install --quiet --yes \
-    'conda-forge::blas=*=openblas' \
     'ipywidgets=7.4*' \
     'pandas=0.23*' \
     'numexpr=2.6*' \
@@ -31,14 +30,14 @@ RUN conda install --quiet --yes \
     'cython=0.28*' \
     'patsy=0.5*' \
     'statsmodels=0.9*' \
-    'cloudpickle=0.5*' \
+    #'cloudpickle=0.5*' \
     'dill=0.2*' \
-    'numba=0.38*' \
+    'numba=0.42*' \
     'bokeh=0.13*' \
     'sqlalchemy=1.2*' \
     'hdf5=1.10*' \
-    'h5py=2.7*' \
-    'vincent=0.4.*' \
+    'h5py=2.9*' \
+    #'vincent=0.4.*' \
     'beautifulsoup4=4.6.*' \
     'protobuf=3.*' \
     'xlrd'  && \
