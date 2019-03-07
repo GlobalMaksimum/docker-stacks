@@ -76,7 +76,7 @@ RUN cd /tmp && \
     fix-permissions /home/$NB_USER
 
 # Install Tini
-RUN conda install --quiet --yes 'tini=0.18.0' && \
+RUN conda install --quiet --yes 'tini=0.18.0' autopep8 && \
     conda list tini | grep tini | tr -s ' ' | cut -d ' ' -f 1,2 >> $CONDA_DIR/conda-meta/pinned && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
@@ -98,6 +98,9 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+RUN pip install jupyter_contrib_nbextensions \
+ && jupyter contrib nbextension install --user
+
 USER root
 
 EXPOSE 8888
@@ -116,3 +119,10 @@ RUN fix-permissions /etc/jupyter/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
+
+
+
+RUN jupyter nbextension enable code_prettify/autopep8
+RUN jupyter nbextension enable toc2/main
+RUN jupyter nbextension enable varInspector/main
+RUN jupyter nbextension enable execute_time/ExecuteTime

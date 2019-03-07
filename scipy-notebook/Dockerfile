@@ -25,6 +25,7 @@ RUN conda install --quiet --yes \
     'scipy=1.1*' \
     'seaborn=0.9*' \
     'scikit-learn=0.20*' \
+    'lightgbm=2.2.*' \
     'scikit-image=0.14*' \
     'sympy=1.1*' \
     'cython=0.28*' \
@@ -40,7 +41,9 @@ RUN conda install --quiet --yes \
     #'vincent=0.4.*' \
     'beautifulsoup4=4.6.*' \
     'protobuf=3.*' \
-    'xlrd' 'python-graphviz' 'tqdm' && \
+    'xlrd' 'python-graphviz' 'tqdm' 'click' 'joblib=0.13.2' \
+    'pytest' 'pytest-xdist' 'regex' \
+    'line_profiler' 'memory_profiler' && \
     conda remove --quiet --yes --force qt pyqt && \
     conda clean -tipsy && \
     # Activate ipywidgets extension in the environment that runs the notebook server
@@ -56,6 +59,7 @@ RUN conda install --quiet --yes \
     rm -rf /home/$NB_USER/.node-gyp && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
+
 
 # Install facets which does not have a pip or conda package at the moment
 RUN cd /tmp && \
